@@ -1,0 +1,137 @@
+menu "Ceiling Fan IOT"
+
+config ROT_ENC_CLK_GPIO
+    int "Rotary Encoder clock (A) GPIO number"
+	range 0 39
+	default 0
+	help
+		GPIO number (IOxx) to which the rotary encoder clock is connected.
+
+		Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+
+config ROT_ENC_DTA_GPIO
+    int "Rotary Encoder data (B) GPIO number"
+	range 0 39
+	default 1
+	help
+		GPIO number (IOxx) to which the rotary encoder data is connected.
+
+		Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+
+config ROT_ENC_DEBOUNCE
+    int "Rotary Encoder debounce in uS"
+	range 100 1000000
+	default 1000
+	help
+		Delay in uS to read the state of the clock pin after irq happened.
+
+		The time sets the maximum decoding speed.
+
+config ROT_ENC_BUTTON_GPIO
+	int "Button GPIO number"
+	range 0 39
+	default 10
+	help
+		GPIO number (IOxx) to which the button is connected.
+
+		Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+		
+config THERMISTOR_SERIE_RESISTANCE
+	int "Serial resistor in ohm of thermistor divisor"
+	range 0 200000
+	default 164000
+	help
+		Value of the serial resistor connected to +3V.
+
+config THERMISTOR_NOMINAL_RESISTANCE
+	int "Nominal resistor in ohm of thermistor"
+	range 0 200000
+	default 100000
+	help
+		Nominal resistance at 25 degrees Celsius of thermistor.
+
+config THERMISTOR_NOMINAL_TEMPERATURE
+	int "Nominal temperature in celcius of thermistor"
+	range 0 50
+	default 25
+	help
+		Nominal temperature of the thermistor, usually 25 degress Celsius.
+
+config THERMISTOR_BETA_VALUE
+	int "Betha coefficient from thermistor manufacturer"
+	range 0 100000
+	default 4250
+	help
+		Beta coefficient of the thermistor.
+		
+config THERMISTOR_VOLTAGE_SOURCE
+	int "Voltage source CPU in mV of thermistor"
+	range 0 5000
+	default 3330
+	help
+		Voltage to which the serial resistance is connected in mV, usually 3300.
+
+choice THERMISTOR_ADC_CHANNEL
+	bool "ADC channel of thermistor"
+	default ADC_CHANNEL_2
+	help
+		Select ADC channel pin where the thermistor is connected.
+
+	config ADC_CHANNEL_1
+		bool "ADC channel 1"
+	config ADC_CHANNEL_2
+		bool "ADC channel 2"
+	config ADC_CHANNEL_3
+		bool "ADC channel 3"
+	config ADC_CHANNEL_4
+		bool "ADC channel 4"
+	config ADC_CHANNEL_5
+		bool "ADC channel 5"
+	config ADC_CHANNEL_6
+		bool "ADC channel 6"
+	config ADC_CHANNEL_7
+		bool "ADC channel 7"
+	config ADC_CHANNEL_8
+		bool "ADC channel 8"
+	config ADC_CHANNEL_9
+		bool "ADC channel 9"
+endchoice
+
+config RELE_SPEED_CAP_LOW_GPIO
+	int "Rele speed cap low GPIO number"
+	range 0 39
+	default 9
+	help
+		GPIO number (IOxx) of capacitor rele low.
+
+		Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+
+config RELE_SPEED_CAP_HIGH_GPIO
+	int "Rele speed cap high GPIO number"
+	range 0 39
+	default 8
+	help
+		GPIO number (IOxx) of speed capacitor rele high.
+
+		Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+
+config RELE_SPEED_DIRECT_GPIO
+	int "Rele speed direct PIO number"
+	range 0 39
+	default 18
+	help
+		GPIO number (IOxx) of speed direct.
+
+		Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+
+config RELE_LIGHT_GPIO
+	int "Rele light GPIO number"
+	range 0 39
+	default 19
+	help
+		GPIO number (IOxx) of light rele.
+
+		Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+		/* With 3 reles control the 4 speed of celling fan in AC */
+
+endmenu
