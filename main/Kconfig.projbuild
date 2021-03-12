@@ -109,7 +109,7 @@ config RELE_SPEED_CAP_LOW_GPIO
 config RELE_SPEED_CAP_HIGH_GPIO
 	int "Rele speed cap high GPIO number"
 	range 0 39
-	default 8
+	default 7
 	help
 		GPIO number (IOxx) of speed capacitor rele high.
 

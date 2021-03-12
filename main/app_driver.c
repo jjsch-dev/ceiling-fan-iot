@@ -20,22 +20,24 @@
 #include "rotary_encoder.h"
 #include "thermistor.h"
 
+#include "esp_log.h"
+static const char* TAG = "app_drv";
+
+#ifdef CONFIG_IDF_TARGET_ESP32C3
+    #include <ws2812_led.h>
+    #define DEFAULT_HUE         180
+    #define DEFAULT_SATURATION  100
+    #define DEFAULT_BRIGHTNESS  ( 20 * DEFAULT_SPEED)
+#endif
+
 /* This is the button that is used for toggling the power */
 #define BUTTON_GPIO          CONFIG_ROT_ENC_BUTTON_GPIO
 #define BUTTON_ACTIVE_LEVEL  0
-/* This is the GPIO on which the power will be set */
-#define OUTPUT_GPIO          19
-
-#define DEFAULT_HUE         180
-#define DEFAULT_SATURATION  100
-#define DEFAULT_BRIGHTNESS  ( 20 * DEFAULT_SPEED)
 
 #define WIFI_RESET_BUTTON_TIMEOUT       3
 #define FACTORY_RESET_BUTTON_TIMEOUT    10
 
 static uint8_t g_speed = DEFAULT_SPEED;
-//static uint16_t g_hue = DEFAULT_HUE;
-//static uint16_t g_saturation = DEFAULT_SATURATION;
 static uint16_t g_value = DEFAULT_BRIGHTNESS;
 static bool g_power = DEFAULT_POWER;
 static bool g_light = false;
@@ -46,7 +48,6 @@ static int g_temp_level = 0;
 // Create rotary encoder instance, and timer
 static esp_timer_handle_t temperature_timer;
 static rotenc_handle_t h_encoder = { 0 };
-//static int last_encoder_val = 0;
 
 static thermistor_handle_t th;
 
@@ -73,6 +74,41 @@ static thermistor_handle_t th;
     #error "Configure the ADC channel where the thermistor is connected"
 #endif
 
+/**
+ * @brief Initialize the LED driver, with the ESP32-C3-Devkitm a neopixel 
+ *        is used.
+ */
+static esp_err_t init_led(void)
+{
+esp_err_t err = ESP_OK;
+
+#ifdef CONFIG_IDF_TARGET_ESP32C3
+    err = ws2812_led_init();
+    if (err == ESP_OK){
+        err = ws2812_led_clear();
+    }
+    ESP_LOGI(TAG, "ws2812_led_init: %d", err);
+#endif
+    return err;
+}
+
+/**
+ * @brief With Neopixel, the saturation of color changes with the value of the 
+ *        temperature, and with the standard LED toggle each time.
+ * @param celius  Temperature in degrees Celsius.
+ */
+static void speed_to_light(uint speed)
+{
+#ifdef CONFIG_IDF_TARGET_ESP32C3
+    if (speed > 0){
+        uint16_t g_hue = (speed * 50);
+        ws2812_led_set_hsv(g_hue, DEFAULT_SATURATION, DEFAULT_BRIGHTNESS);
+    } else {
+        ws2812_led_clear();
+    }
+#endif
+}
+
 static void set_speed(int val)
 {
     // First turn off the relay.
@@ -97,6 +133,8 @@ static void set_speed(int val)
         gpio_set_level(CONFIG_RELE_SPEED_CAP_HIGH_GPIO, true);
         gpio_set_level(CONFIG_RELE_SPEED_DIRECT_GPIO, false);
     }
+
+    speed_to_light(val);
 }
 
 static void encoder_update(rotenc_event_t event)
@@ -285,6 +323,7 @@ void app_driver_init()
 
     encoder_init(); 
     app_temperature_init(); 
+    init_led();
 }
 
 float app_get_current_temperature(void)
