@@ -19,6 +19,7 @@
 
 #include "rotary_encoder.h"
 #include "thermistor.h"
+#include "math.h"
 
 #include "esp_log.h"
 static const char* TAG = "app_drv";
@@ -50,6 +51,7 @@ static esp_timer_handle_t temperature_timer;
 static rotenc_handle_t h_encoder = { 0 };
 
 static thermistor_handle_t th;
+static int32_t last_encoder_position = 0; 
 
 // Converts the choice of menuconfig into the enums of the ADC channels.
 #if CONFIG_ADC_CHANNEL_1
@@ -141,29 +143,33 @@ static void encoder_update(rotenc_event_t event)
 {
     uint8_t old_speed = g_speed;
 
-    if ((event.direction == ROTENC_CW) && (g_speed < 5)) {
-        set_speed(++g_speed);
-    } else if ((event.direction == ROTENC_CCW) && (g_speed > 0)) {
-        set_speed(--g_speed);
-    } 
+    if (abs(last_encoder_position - event.position) >= 3){
+        if ((event.direction == ROTENC_CW) && (g_speed < 5)) {
+            set_speed(++g_speed);
+        } else if ((event.direction == ROTENC_CCW) && (g_speed > 0)) {
+            set_speed(--g_speed);
+        } 
 
-    if (old_speed != g_speed) {
-        esp_rmaker_param_update_and_report(
-                esp_rmaker_device_get_param_by_type(fan_device, ESP_RMAKER_PARAM_SPEED),
-                esp_rmaker_int(g_speed));
+        if (old_speed != g_speed) {
+            esp_rmaker_param_update_and_report(
+                    esp_rmaker_device_get_param_by_type(fan_device, ESP_RMAKER_PARAM_SPEED),
+                    esp_rmaker_int(g_speed));
 
-        if ((old_speed == 0) || ((g_power == false) && (g_speed > 0))) {
-            g_power = true;
-            esp_rmaker_param_update_and_report(
-                    esp_rmaker_device_get_param_by_type(fan_device, ESP_RMAKER_PARAM_POWER),
-                    esp_rmaker_bool(g_power));
-        } else if (g_speed == 0) {
-            g_power = false;
-            esp_rmaker_param_update_and_report(
-                    esp_rmaker_device_get_param_by_type(fan_device, ESP_RMAKER_PARAM_POWER),
-                    esp_rmaker_bool(g_power));
-            
+            if ((old_speed == 0) || ((g_power == false) && (g_speed > 0))) {
+                g_power = true;
+                esp_rmaker_param_update_and_report(
+                        esp_rmaker_device_get_param_by_type(fan_device, ESP_RMAKER_PARAM_POWER),
+                        esp_rmaker_bool(g_power));
+            } else if (g_speed == 0) {
+                g_power = false;
+                esp_rmaker_param_update_and_report(
+                        esp_rmaker_device_get_param_by_type(fan_device, ESP_RMAKER_PARAM_POWER),
+                        esp_rmaker_bool(g_power));
+                
+            }
         }
+     
+        last_encoder_position = event.position;
     }
 }
 
