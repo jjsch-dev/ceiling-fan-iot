@@ -16,5 +16,9 @@
     "files.associations": {
         "atomic": "c",
         "esp_rmaker_core.h": "c"
-    }
+    },
+    "idf.adapterTargetName": "esp32c3",
+    "idf.openOcdConfigs": [
+        "board/esp32c3-ftdi.cfg"
+    ]
 }
