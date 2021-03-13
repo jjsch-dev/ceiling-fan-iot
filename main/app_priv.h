@@ -29,6 +29,7 @@
 #define DEFAULT_SPEED                     3
 #define DEFAULT_TEMPERATURE               25.0
 #define TEMPERATURE_REPORTING_PERIOD      10 /* Seconds */
+#define MAX_CELING_SPEED                  5
 
 #define LIGHT_SWITCH_NAME                 "Ligth"
 #define THERMOSTAT_DEVICE_NAME            "Thermostat"

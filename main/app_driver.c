@@ -47,9 +47,6 @@ static const char* TAG = "app_drv";
 
 #ifdef CONFIG_IDF_TARGET_ESP32C3
     #include <ws2812_led.h>
-    #define DEFAULT_HUE         180
-    #define DEFAULT_SATURATION  100
-    #define DEFAULT_BRIGHTNESS  ( 20 * DEFAULT_SPEED)
 #endif
 
 /* This is the button that is used for toggling the power */
@@ -60,7 +57,6 @@ static const char* TAG = "app_drv";
 #define FACTORY_RESET_BUTTON_TIMEOUT    10
 
 static uint8_t g_speed = DEFAULT_SPEED;
-static uint16_t g_value = DEFAULT_BRIGHTNESS;
 static bool g_power = DEFAULT_POWER;
 static bool g_light = false;
 static float g_temperature = 0;
@@ -116,16 +112,35 @@ esp_err_t err = ESP_OK;
 }
 
 /**
- * @brief With Neopixel, the saturation of color changes with the value of the 
- *        speed.
+ * @brief Re-maps a number from one range to another. That is, a value of fromLow 
+ *        would get mapped to toLow, a value of fromHigh to toHigh, values in-between 
+ *        to values in-between, etc.
+ *        NOTE: this function was inspired by Arduino: 
+ *        https://www.arduino.cc/reference/en/language/functions/math/map/
+ * 
+ * @param x The number to map.
+ * @param in_min The lower bound of the value’s current range.
+ * @param in_max The upper bound of the value’s current range.
+ * @param out_min The lower bound of the value’s target range.
+ * @param out_max The upper bound of the value’s target range
+ * @return The mapped value.
+.*/
+static uint32_t num_map(uint32_t x, 
+                        uint32_t in_min, uint32_t in_max, 
+                        uint32_t out_min, uint32_t out_max) 
+{
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+/**
+ * @brief With Neopixel, the brightness of green changes with speed.
  * @param speed  Ceiling speed.
  */
 static void speed_to_light(uint speed)
 {
 #ifdef CONFIG_IDF_TARGET_ESP32C3
     if (speed > 0) {
-        uint16_t g_hue = (speed * 50);
-        ws2812_led_set_hsv(g_hue, DEFAULT_SATURATION, DEFAULT_BRIGHTNESS);
+        ws2812_led_set_rgb(0, num_map(speed, 0, MAX_CELING_SPEED, 0, 100), 0);
     } else {
         ws2812_led_clear();
     }
@@ -173,7 +188,7 @@ static void encoder_update(rotenc_event_t event)
     uint8_t old_speed = g_speed;
 
     if (abs(last_encoder_position - event.position) >= 3) {
-        if ((event.direction == ROTENC_CW) && (g_speed < 5)) {
+        if ((event.direction == ROTENC_CW) && (g_speed < MAX_CELING_SPEED)) {
             set_speed(++g_speed);
         } else if ((event.direction == ROTENC_CCW) && (g_speed > 0)) {
             set_speed(--g_speed);
@@ -236,7 +251,7 @@ static void push_btn_cb(void *arg)
 }
 
 /**
- * @brief Function that is invoked when the timer expires to read the temperature.
+ * @brief Function invoked when the timer expires to read the temperature.
  * @param priv
  */
 static void app_temperatura_update(void *priv)
@@ -270,7 +285,7 @@ static void app_temperatura_update(void *priv)
 
 /**
  * @brief Initializes the thermostat controller. Initialize the 
- *        thermostat component and install the status update timer.
+ *        thermistor component and install the status update timer.
  * @param void
  * @return ESP_OK if successful
  */
@@ -314,7 +329,6 @@ esp_err_t app_fan_set_power(bool power)
 esp_err_t app_fan_set_speed(uint8_t speed)
 {
     g_speed = speed;
-    g_value = 20 * g_speed;
 
     set_speed(speed);
 
