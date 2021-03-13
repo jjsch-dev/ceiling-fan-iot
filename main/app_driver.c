@@ -1,11 +1,32 @@
-/* Celling Fan implementation using reles and thermistor.
+/*
+ * MIT License
+ * 
+ * Copyright (c) 2021 Juan Schiavoni
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
-   This example code is in the Public Domain (or CC0 licensed, at your option.)
-
-   Unless required by applicable law or agreed to in writing, this
-   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied.
-*/
+/**
+ * @file app_driver.c
+ * @brief Based on the Espressif example, it implements the low-level drivers 
+ *        that control the fan (relays / thermistor, led).
+ */
 
 #include <sdkconfig.h>
 
@@ -86,7 +107,7 @@ esp_err_t err = ESP_OK;
 
 #ifdef CONFIG_IDF_TARGET_ESP32C3
     err = ws2812_led_init();
-    if (err == ESP_OK){
+    if (err == ESP_OK) {
         err = ws2812_led_clear();
     }
     ESP_LOGI(TAG, "ws2812_led_init: %d", err);
@@ -96,13 +117,13 @@ esp_err_t err = ESP_OK;
 
 /**
  * @brief With Neopixel, the saturation of color changes with the value of the 
- *        temperature, and with the standard LED toggle each time.
- * @param celius  Temperature in degrees Celsius.
+ *        speed.
+ * @param speed  Ceiling speed.
  */
 static void speed_to_light(uint speed)
 {
 #ifdef CONFIG_IDF_TARGET_ESP32C3
-    if (speed > 0){
+    if (speed > 0) {
         uint16_t g_hue = (speed * 50);
         ws2812_led_set_hsv(g_hue, DEFAULT_SATURATION, DEFAULT_BRIGHTNESS);
     } else {
@@ -111,6 +132,10 @@ static void speed_to_light(uint speed)
 #endif
 }
 
+/**
+ * @brief Control the relays to set the fan speed.
+ * @param val Ceiling speed. 0 = turn off, 4 = max.
+ */
 static void set_speed(int val)
 {
     // First turn off the relay.
@@ -118,19 +143,19 @@ static void set_speed(int val)
         gpio_set_level(CONFIG_RELE_SPEED_CAP_LOW_GPIO, true);
         gpio_set_level(CONFIG_RELE_SPEED_CAP_HIGH_GPIO, true);
         gpio_set_level(CONFIG_RELE_SPEED_DIRECT_GPIO, true);
-    } else if (val == 1){
+    } else if (val == 1) {
         gpio_set_level(CONFIG_RELE_SPEED_CAP_HIGH_GPIO, true);
         gpio_set_level(CONFIG_RELE_SPEED_DIRECT_GPIO, true);
         gpio_set_level(CONFIG_RELE_SPEED_CAP_LOW_GPIO, false);
-    } else if (val == 2){
+    } else if (val == 2) {
         gpio_set_level(CONFIG_RELE_SPEED_CAP_LOW_GPIO, true);
         gpio_set_level(CONFIG_RELE_SPEED_DIRECT_GPIO, true);
         gpio_set_level(CONFIG_RELE_SPEED_CAP_HIGH_GPIO, false);
-    } else if (val == 3){
+    } else if (val == 3) {
         gpio_set_level(CONFIG_RELE_SPEED_DIRECT_GPIO, true);
         gpio_set_level(CONFIG_RELE_SPEED_CAP_LOW_GPIO, false);
         gpio_set_level(CONFIG_RELE_SPEED_CAP_HIGH_GPIO, false);
-    } else if ((val == 4) || (val == 5)){
+    } else if ((val == 4) || (val == 5)) {
         gpio_set_level(CONFIG_RELE_SPEED_CAP_LOW_GPIO, true);
         gpio_set_level(CONFIG_RELE_SPEED_CAP_HIGH_GPIO, true);
         gpio_set_level(CONFIG_RELE_SPEED_DIRECT_GPIO, false);
@@ -139,11 +164,15 @@ static void set_speed(int val)
     speed_to_light(val);
 }
 
+/**
+ * @brief Function called by the encoder controller when the user moves the shaft.
+ * @param event Contains the position and direction of the encoder.
+ */
 static void encoder_update(rotenc_event_t event)
 {
     uint8_t old_speed = g_speed;
 
-    if (abs(last_encoder_position - event.position) >= 3){
+    if (abs(last_encoder_position - event.position) >= 3) {
         if ((event.direction == ROTENC_CW) && (g_speed < 5)) {
             set_speed(++g_speed);
         } else if ((event.direction == ROTENC_CCW) && (g_speed > 0)) {
@@ -173,17 +202,99 @@ static void encoder_update(rotenc_event_t event)
     }
 }
 
-static int encoder_init(void)
+/**
+ * @brief Initialize the rotary encoder to control speed and light.
+ * @param void
+ *  
+ * @return ESP_OK if successful
+ */
+static esp_err_t encoder_init(void)
 {
     // Initialize the handle instance of the rotary device, 
     // by default it uses 1 mS for the debounce time.
-    int err = rotenc_init(&h_encoder, 
-                          CONFIG_ROT_ENC_CLK_GPIO, 
-                          CONFIG_ROT_ENC_DTA_GPIO, 
-                          CONFIG_ROT_ENC_DEBOUNCE);
+    esp_err_t err = rotenc_init(&h_encoder, 
+                                CONFIG_ROT_ENC_CLK_GPIO, 
+                                CONFIG_ROT_ENC_DTA_GPIO, 
+                                CONFIG_ROT_ENC_DEBOUNCE);
 
     if (err == ESP_OK) {
         err = rotenc_set_event_callback(&h_encoder, encoder_update);
+    }
+
+    return err;
+}
+
+/**
+ * @brief Function invoked when user presses encoder button to turn light on / off.
+ * @param arg
+ */
+static void push_btn_cb(void *arg)
+{
+    app_fan_set_ligth(!g_light);
+    
+    esp_rmaker_param_update_and_report(light_param, esp_rmaker_bool(g_light));
+}
+
+/**
+ * @brief Function that is invoked when the timer expires to read the temperature.
+ * @param priv
+ */
+static void app_temperatura_update(void *priv)
+{
+    app_get_current_temperature();
+
+    esp_rmaker_param_update_and_report(
+            esp_rmaker_device_get_param_by_type(thermostat_device, ESP_RMAKER_PARAM_TEMPERATURE),
+            esp_rmaker_float(g_temperature));
+
+    if (g_temp_enable) {
+        if (!g_power) {
+            if (g_temperature > g_temp_level) {
+                g_power = true;
+                esp_rmaker_param_update_and_report(
+                    esp_rmaker_device_get_param_by_type(fan_device, ESP_RMAKER_PARAM_POWER),
+                    esp_rmaker_bool(g_power));
+                set_speed(g_speed);
+            }        
+        } else {
+            if (g_temperature < (g_temp_level + 1)) {
+                g_power = false;
+                esp_rmaker_param_update_and_report(
+                    esp_rmaker_device_get_param_by_type(fan_device, ESP_RMAKER_PARAM_POWER),
+                    esp_rmaker_bool(g_power));
+                set_speed(0);
+            }  
+        }
+    }
+}
+
+/**
+ * @brief Initializes the thermostat controller. Initialize the 
+ *        thermostat component and install the status update timer.
+ * @param void
+ * @return ESP_OK if successful
+ */
+static esp_err_t app_temperature_init(void)
+{
+    g_temperature = DEFAULT_TEMPERATURE;
+    esp_timer_create_args_t temperature_timer_conf = {
+        .callback = app_temperatura_update,
+        .dispatch_method = ESP_TIMER_TASK,
+        .name = "app_temperatura_update"
+    };
+
+    esp_err_t err = thermistor_init(&th, THERMISTOR_ADC_CHANNEL, 
+                                    CONFIG_THERMISTOR_SERIE_RESISTANCE, 
+                                    CONFIG_THERMISTOR_NOMINAL_RESISTANCE, 
+                                    CONFIG_THERMISTOR_NOMINAL_TEMPERATURE,
+                                    CONFIG_THERMISTOR_BETA_VALUE, 
+                                    CONFIG_THERMISTOR_VOLTAGE_SOURCE);
+
+    if (err == ESP_OK) {
+        err = esp_timer_create(&temperature_timer_conf, &temperature_timer);
+        if (err == ESP_OK) {
+            esp_timer_start_periodic(temperature_timer, TEMPERATURE_REPORTING_PERIOD * 1000000U);
+        }
     }
 
     return err;
@@ -235,68 +346,6 @@ esp_err_t app_fan_init(void)
 {
     app_fan_set_power(g_power);
     return ESP_OK;
-}
-
-static void push_btn_cb(void *arg)
-{
-    app_fan_set_ligth(!g_light);
-    
-    esp_rmaker_param_update_and_report(light_param, esp_rmaker_bool(g_light));
-}
-
-static void app_temperatura_update(void *priv)
-{
-    app_get_current_temperature();
-
-    esp_rmaker_param_update_and_report(
-            esp_rmaker_device_get_param_by_type(thermostat_device, ESP_RMAKER_PARAM_TEMPERATURE),
-            esp_rmaker_float(g_temperature));
-
-    if (g_temp_enable) {
-        if (!g_power){
-            if (g_temperature > g_temp_level) {
-                g_power = true;
-                esp_rmaker_param_update_and_report(
-                    esp_rmaker_device_get_param_by_type(fan_device, ESP_RMAKER_PARAM_POWER),
-                    esp_rmaker_bool(g_power));
-                set_speed(g_speed);
-            }        
-        } else {
-            if (g_temperature < (g_temp_level + 1)) {
-                g_power = false;
-                esp_rmaker_param_update_and_report(
-                    esp_rmaker_device_get_param_by_type(fan_device, ESP_RMAKER_PARAM_POWER),
-                    esp_rmaker_bool(g_power));
-                set_speed(0);
-            }  
-        }
-    }
-}
-
-static esp_err_t app_temperature_init(void)
-{
-    g_temperature = DEFAULT_TEMPERATURE;
-    esp_timer_create_args_t temperature_timer_conf = {
-        .callback = app_temperatura_update,
-        .dispatch_method = ESP_TIMER_TASK,
-        .name = "app_temperatura_update"
-    };
-
-    esp_err_t err = thermistor_init(&th, THERMISTOR_ADC_CHANNEL, 
-                                    CONFIG_THERMISTOR_SERIE_RESISTANCE, 
-                                    CONFIG_THERMISTOR_NOMINAL_RESISTANCE, 
-                                    CONFIG_THERMISTOR_NOMINAL_TEMPERATURE,
-                                    CONFIG_THERMISTOR_BETA_VALUE, 
-                                    CONFIG_THERMISTOR_VOLTAGE_SOURCE);
-
-    if (err == ESP_OK) {
-        err = esp_timer_create(&temperature_timer_conf, &temperature_timer);
-        if (err == ESP_OK) {
-            esp_timer_start_periodic(temperature_timer, TEMPERATURE_REPORTING_PERIOD * 1000000U);
-        }
-    }
-
-    return err;
 }
 
 void app_driver_init()

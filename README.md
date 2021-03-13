@@ -1,4 +1,4 @@
-# Ceil ing Fan Control - (No Humming)
+# Ceiling Fan Control - (No Humming)
 
 The purpose of this project is to develop a hum-free electronic ceiling fan device that can be controlled remotely (IOT) or locally with a rotary encoder.
 
