@@ -133,14 +133,26 @@ static uint32_t num_map(uint32_t x,
 }
 
 /**
- * @brief With Neopixel, the brightness of green changes with speed.
- * @param speed  Ceiling speed.
+ * @brief Indicates the status of the controller with the colors and level of 
+ *        the neopixel.
+ * @param speed  Ceiling speed (0 to 5).
+ * @param light  Light on or off.
  */
-static void speed_to_light(uint speed)
+static void show_status(uint8_t speed, bool light)
 {
 #ifdef CONFIG_IDF_TARGET_ESP32C3
+    uint32_t level = num_map(speed, 0, MAX_CELING_SPEED, 0, 100);
+    // If the fan and the light are activated, it indicates the speed level in 
+    // green, and when the light is off in red; If the fan is off and the light 
+    // is on, the blue led turns on 100%.
     if (speed > 0) {
-        ws2812_led_set_rgb(0, num_map(speed, 0, MAX_CELING_SPEED, 0, 100), 0);
+        if (light) { 
+            ws2812_led_set_rgb(0, level, 0);
+        } else {
+            ws2812_led_set_rgb(level, 0, 0);  
+        }
+    } else if (light) {
+        ws2812_led_set_rgb(0, 0, 100); 
     } else {
         ws2812_led_clear();
     }
@@ -151,7 +163,7 @@ static void speed_to_light(uint speed)
  * @brief Control the relays to set the fan speed.
  * @param val Ceiling speed. 0 = turn off, 4 = max.
  */
-static void set_speed(int val)
+static void set_speed(uint8_t val)
 {
     // First turn off the relay.
     if (val == 0) {
@@ -176,7 +188,7 @@ static void set_speed(int val)
         gpio_set_level(CONFIG_RELE_SPEED_DIRECT_GPIO, false);
     }
 
-    speed_to_light(val);
+    show_status(val, g_light);
 }
 
 /**
@@ -247,6 +259,7 @@ static void push_btn_cb(void *arg)
 {
     app_fan_set_ligth(!g_light);
     
+    show_status(g_speed, g_light);
     esp_rmaker_param_update_and_report(light_param, esp_rmaker_bool(g_light));
 }
 
