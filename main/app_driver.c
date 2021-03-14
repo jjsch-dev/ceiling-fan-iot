@@ -145,7 +145,7 @@ static void show_status(uint8_t speed, bool light)
     // If the fan and the light are activated, it indicates the speed level in 
     // green, and when the light is off in red; If the fan is off and the light 
     // is on, the blue led turns on 100%.
-    if (speed > 0) {
+    if ((speed > 0) && (g_power)) {
         if (light) { 
             ws2812_led_set_rgb(0, level, 0);
         } else {
@@ -201,9 +201,9 @@ static void encoder_update(rotenc_event_t event)
 
     if (abs(last_encoder_position - event.position) >= 3) {
         if ((event.direction == ROTENC_CW) && (g_speed < MAX_CELING_SPEED)) {
-            set_speed(++g_speed);
+            g_speed++;
         } else if ((event.direction == ROTENC_CCW) && (g_speed > 0)) {
-            set_speed(--g_speed);
+            g_speed--;
         } 
 
         if (old_speed != g_speed) {
@@ -223,6 +223,8 @@ static void encoder_update(rotenc_event_t event)
                         esp_rmaker_bool(g_power));
                 
             }
+
+            set_speed(g_speed);
         }
      
         last_encoder_position = event.position;
@@ -342,8 +344,6 @@ esp_err_t app_fan_set_speed(uint8_t speed)
 {
     g_speed = speed;
 
-    set_speed(speed);
-
     if ((g_speed > 0) && !g_power) {
         g_power = true;
         esp_rmaker_param_update_and_report(
@@ -356,6 +356,8 @@ esp_err_t app_fan_set_speed(uint8_t speed)
                 esp_rmaker_bool(g_power));
         
     }
+
+    set_speed(speed);
 
     return ESP_OK; 
 }
