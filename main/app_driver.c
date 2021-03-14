@@ -259,7 +259,6 @@ static void push_btn_cb(void *arg)
 {
     app_fan_set_ligth(!g_light);
     
-    show_status(g_speed, g_light);
     esp_rmaker_param_update_and_report(light_param, esp_rmaker_bool(g_light));
 }
 
@@ -366,6 +365,8 @@ esp_err_t app_fan_set_ligth(bool state)
     g_light = state;
 
     gpio_set_level(CONFIG_RELE_LIGHT_GPIO, !state);
+
+    show_status(g_speed, g_light);
     return ESP_OK;  
 }
 
