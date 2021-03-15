@@ -133,8 +133,8 @@ static uint32_t num_map(uint32_t x,
 }
 
 /**
- * @brief Indicates the status of the controller with the colors and level of 
- *        the neopixel.
+ * @brief Use a neopixel to indicate controller status by modifying RGB colors 
+ *        and level.
  * @param speed  Ceiling speed (0 to 5).
  * @param light  Light on or off.
  */
@@ -192,7 +192,7 @@ static void set_speed(uint8_t val)
 }
 
 /**
- * @brief Function called by the encoder controller when the user moves the shaft.
+ * @brief Function called by the encoder component when the user moves the shaft.
  * @param event Contains the position and direction of the encoder.
  */
 static void encoder_update(rotenc_event_t event)
@@ -254,7 +254,7 @@ static esp_err_t encoder_init(void)
 }
 
 /**
- * @brief Function invoked when user presses encoder button to turn light on / off.
+ * @brief Function invoked when user presses encoder button to turn light on/off.
  * @param arg
  */
 static void push_btn_cb(void *arg)
