@@ -127,7 +127,9 @@ void app_main()
     esp_rmaker_device_add_cb(fan_device, write_cb, NULL);
     esp_rmaker_device_add_param(fan_device, esp_rmaker_speed_param_create(ESP_RMAKER_DEF_SPEED_NAME, DEFAULT_SPEED));
     
-    light_param = esp_rmaker_param_create(LIGHT_SWITCH_NAME, NULL, esp_rmaker_bool(false), PROP_FLAG_READ | PROP_FLAG_WRITE);
+    light_param = esp_rmaker_param_create(LIGHT_SWITCH_NAME, NULL, 
+                                          esp_rmaker_bool(DEFAULT_LIGHT), 
+                                          PROP_FLAG_READ | PROP_FLAG_WRITE);
     esp_rmaker_param_add_ui_type(light_param, ESP_RMAKER_UI_TOGGLE);
     esp_rmaker_device_add_param(fan_device, light_param);
 
@@ -137,11 +139,15 @@ void app_main()
     thermostat_device = esp_rmaker_temp_sensor_device_create(THERMOSTAT_DEVICE_NAME, NULL, app_get_current_temperature());
     esp_rmaker_device_add_cb(thermostat_device, write_cb, NULL);
 
-    thermostat_enable_param = esp_rmaker_param_create(THERMOSTAT_SWITCH_NAME, NULL, esp_rmaker_bool(false), PROP_FLAG_READ | PROP_FLAG_WRITE);
+    thermostat_enable_param = esp_rmaker_param_create(THERMOSTAT_SWITCH_NAME, NULL, 
+                                                      esp_rmaker_bool(DEFAULT_THERMOSTAT_ENABLE), 
+                                                      PROP_FLAG_READ | PROP_FLAG_WRITE);
     esp_rmaker_param_add_ui_type(thermostat_enable_param, ESP_RMAKER_UI_TOGGLE);
     esp_rmaker_device_add_param(thermostat_device, thermostat_enable_param);
     
-    thermostat_slider_param = esp_rmaker_param_create(THERMOSTAT_SLIDER_NAME, NULL, esp_rmaker_int(30), PROP_FLAG_READ | PROP_FLAG_WRITE);
+    thermostat_slider_param = esp_rmaker_param_create(THERMOSTAT_SLIDER_NAME, NULL, 
+                                                      esp_rmaker_int(DEFAULT_THERMOSTAT_TEMPERATURE), 
+                                                      PROP_FLAG_READ | PROP_FLAG_WRITE);
     esp_rmaker_param_add_ui_type(thermostat_slider_param, ESP_RMAKER_UI_SLIDER);
     esp_rmaker_param_add_bounds(thermostat_slider_param, esp_rmaker_int(10), esp_rmaker_int(40), esp_rmaker_int(1));
     esp_rmaker_device_add_param(thermostat_device, thermostat_slider_param);

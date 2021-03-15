@@ -25,16 +25,19 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define DEFAULT_POWER                     false
-#define DEFAULT_SPEED                     3
-#define DEFAULT_TEMPERATURE               25.0
-#define TEMPERATURE_REPORTING_PERIOD      10 /* Seconds */
-#define MAX_CELING_SPEED                  5
+#define DEFAULT_POWER                       false
+#define DEFAULT_SPEED                       3
+#define DEFAULT_LIGHT                       false
+#define DEFAULT_TEMPERATURE                 25.0
+#define DEFAULT_THERMOSTAT_TEMPERATURE      30
+#define DEFAULT_THERMOSTAT_ENABLE           false
+#define TEMPERATURE_REPORTING_PERIOD        10 /* Seconds */
+#define MAX_CELING_SPEED                    5
 
-#define LIGHT_SWITCH_NAME                 "Ligth"
-#define THERMOSTAT_DEVICE_NAME            "Thermostat"
-#define THERMOSTAT_SWITCH_NAME            "Enable"
-#define THERMOSTAT_SLIDER_NAME            "Temp"
+#define LIGHT_SWITCH_NAME                   "Ligth"
+#define THERMOSTAT_DEVICE_NAME              "Thermostat"
+#define THERMOSTAT_SWITCH_NAME              "Enable"
+#define THERMOSTAT_SLIDER_NAME              "Temp"
 
 extern esp_rmaker_device_t *fan_device;
 extern esp_rmaker_param_t *light_param;

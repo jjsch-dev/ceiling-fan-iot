@@ -58,10 +58,10 @@ static const char* TAG = "app_drv";
 
 static uint8_t g_speed = DEFAULT_SPEED;
 static bool g_power = DEFAULT_POWER;
-static bool g_light = false;
+static bool g_light = DEFAULT_LIGHT;
 static float g_temperature = 0;
-static bool g_temp_enable = false;
-static int g_temp_level = 0;
+static bool g_temp_enable = DEFAULT_THERMOSTAT_ENABLE;
+static int g_temp_level = DEFAULT_THERMOSTAT_TEMPERATURE;
 
 // Create rotary encoder instance, and timer
 static esp_timer_handle_t temperature_timer;
