@@ -28,6 +28,25 @@ Controls the (ON / OFF) of the fan with temperature. As a sensor it uses a therm
 
 ![alt text](images/app_thermostat.png)
 
+### Power Supply
+To power the electronic equipment, approximately 350 mA at 3.3V is required for the CPU when Wi-Fi is in active mode, and 90 mA at 5V for each relay. (350mA * 3.3V) = 1,155 W + (90 mA * 5 * 3 relays) = 1,350 W, total = 2,505 W. To increase the safety factor for the proof of concept select the Hi-Link source [HLK-5M05](https://datasheet.lcsc.com/szlcsc/1912111437_HI-LINK-HLK-5M05_C209907.pdf) that delivers 5V at 1A which is twice the estimated power.
+
+![alt text](images/power_supply_5v_1a.png)
+
+On page 7 of the source data sheets, there is a table of suggestions for additional components such as a fuse for protect the circuit from damage when the module is working wrong, a capacitor for filtering, and safety protection (EMC certification) and a filter / inductance in common mode, for EMI filtering
+
+The next two images show the DC output and ripple output of the power supply without load.
+
+![alt text](images/TEK_hlk_5v_dc_no_charge.png)
+
+![alt text](images/TEK_hlk_ripple_no_charged.png)
+
+The next two pictures show the DC output and ripple output of the power supply with the CPU running.
+
+![alt text](images/TEK_hlk_5v_dc_charge.png)
+
+![alt text](images/TEK_hlk_ripple_charged.png)
+
 ### Reset to Factory
 
 Press and hold the encoder button for more than 3 seconds to reset the board to factory defaults. You will have to provision the board again to use it.
