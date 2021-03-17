@@ -18,6 +18,10 @@ To control the device from a cell phone, [Espressif Rainmaker](https://rainmaker
 
 For local control, a pushbutton rotary encoder is used to set the speed and turn the fan light on / off.
 
+### Visual indication
+
+Taking advantage of the fact that the ESP32-C3 mini board has a neopixel, the combinations of functions are indicated with colors and brightness levels. For example, when the light is off, the fan speed is indicated with 4 levels of brightness in red, but when it is on in green, and when the fan is off it turns blue to the maximum.
+
 ### Thermostat Device
 
 Controls the (ON / OFF) of the fan with temperature. As a sensor it uses a thermistor of 100K at 25 degrees Celsius with a beta of 4250 from Murata model NXRT15WF104FA1B040. The firmware uses the simplified [Steinhart equation](https://en.wikipedia.org/wiki/Steinhart%E2%80%93Hart_equation) to linearize the response. The control implements a 2 degree hysterisis to improve system stability.
