@@ -16,7 +16,7 @@ To control the device from a cell phone, [Espressif Rainmaker](https://rainmaker
 
 ### Manual Control
 
-For local control, a pushbutton rotary encoder is used to set the speed and turn the fan light on / off.
+For local control, a pushbutton rotary encoder is used to set the speed and turn the fan light on/off. To improve the speed resolution, the user has to rotate the shaft three or more steps to increase/decrease.
 
 ### Visual indication
 
