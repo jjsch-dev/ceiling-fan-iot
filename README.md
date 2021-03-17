@@ -43,7 +43,7 @@ The next two images show the DC output and ripple output of the power supply wit
 
 The next two pictures show the DC output and ripple output of the power supply with the CPU running.
 
-![alt text](images/TEK_hlk_5v_dc_charge.png)
+![alt text](images/TEK_hlk_5v_dc_charged.png)
 
 ![alt text](images/TEK_hlk_ripple_charged.png)
 
