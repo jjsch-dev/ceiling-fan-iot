@@ -31,7 +31,7 @@ Press and hold the encoder button for more than 3 seconds to reset the board to 
 ### Schematic
 The schematic of the ESP32-C3 version is simple, it consists of an output stage made up of 4 relays, an encoder for manual control, and a thermistor to control the thermostat. As a power supply it uses a 5V 600 mA HLK.
 
-![alt text](images/Schematic_Fan_Controller_esp32-c3.png)
+![alt text](images/Schematic_Fan_Controller.png)
 
 ### Prototype Board
 The first version of the prototype is a mix of Arduino boards with conventional electronics. The next version will add a power supply to test the concept on a fan.
