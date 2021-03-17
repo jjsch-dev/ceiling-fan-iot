@@ -29,8 +29,9 @@ Controls the (ON / OFF) of the fan with temperature. As a sensor it uses a therm
 Press and hold the encoder button for more than 3 seconds to reset the board to factory defaults. You will have to provision the board again to use it.
 
 ### Schematic
+The schematic of the ESP32-C3 version is simple, it consists of an output stage made up of 4 relays, an encoder for manual control, and a thermistor to control the thermostat. As a power supply it uses a 5V 600 mA HLK.
 
-![alt text](images/Schematic_Fan_Controller.png)
+![alt text](images/Schematic_Fan_Controller_esp32-c3.png)
 
 ### Prototype Board
 The first version of the prototype is a mix of Arduino boards with conventional electronics. The next version will add a power supply to test the concept on a fan.
@@ -40,6 +41,12 @@ The first version of the prototype is a mix of Arduino boards with conventional 
 The second version has the thermistor to control the fan thermostat.
 
 ![alt text](images/second_version.png)
+
+The third prototype is already functional and, although the form factor is not suitable for a wall mount, it allows to control the fan with all the specified functionalities. As you can see, it uses the ESP32-C3 version of the CPU.
+
+![alt text](images/protoype_esp32-c3_1.png)
+
+![alt text](images/protoype_esp32-c3_3.png)
 
 
 
