@@ -72,5 +72,20 @@ The third prototype is already functional and, although the form factor is not s
 
 ![alt text](images/protoype_esp32-c3_3.png)
 
+### Development environment
+The application is written in C, based on Espressif IDF and as a development tool the [Visual Code](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/vscode-setup.html) of MS was used with the Espressif plugin.
 
-
+1 - Download the [IDF](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/).
+2 - Download the [Rainmaker](https://github.com/espressif/esp-rainmaker).
+3 - Download the [celing-fan-iot](https://github.com/jjsch-dev/ceiling-fan-iot) application code.
+4 - Select the device target CPU for ESP32-C3.
+![](images/visual_code_set_target.gif)
+5 - Build (compile and link).
+![](images/visual_code_build.gif)
+5 - Flash the code.
+![](images/visual_code_flash.gif)
+6 - Run the serial monitor.
+![](images/visual_code_monitor.gif)
+7 - Download the Rain-Maker application for Android or iPhone.
+8 - Provisioning.
+9 - Enjoy.
