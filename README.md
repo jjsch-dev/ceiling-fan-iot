@@ -33,7 +33,7 @@ To power the electronic equipment, approximately 350 mA at 3.3V is required for 
 
 ![alt text](images/power_supply_5v_1a.png)
 
-On page 7 of the source data sheets, there is a table of suggestions for additional components such as a fuse for protect the circuit from damage when the module is working wrong, a capacitor for filtering, and safety protection (EMC certification) and a filter / inductance in common mode, for EMI filtering
+On page 7 of the datasheet, there is a table of suggestions for additional components such as a fuse to protect the circuit from damage when the module malfunctions, a capacitor for filtering and safety protection (EMC certified), and a filter / inductor in common. mode, for EMI filtering. And the last thing was adding a filter capacitor that can reduce the output ripple from the original 50mV to 30mV.
 
 The next two images show the DC output and ripple output of the power supply without load.
 
