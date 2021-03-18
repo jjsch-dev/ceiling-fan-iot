@@ -1,6 +1,7 @@
 # Ceiling Fan Control - (No Humming)
 
 The purpose of this project is to develop a hum-free electronic ceiling fan device that can be controlled remotely (IOT) or locally with a rotary encoder.
+The selected processor is the [ESP32-C3](https://www.espressif.com/sites/default/files/documentation/esp32-c3-mini-1_datasheet_en.pdf) in its mini development kit format.
 
 ## Electronic for No Humming
 
