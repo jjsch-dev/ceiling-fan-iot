@@ -95,8 +95,10 @@ The application is written in C, based on Espressif IDF and as a development too
 
 7 - Download the Rain-Maker application for Android or iPhone.
 
-8 - Provisioning (Configure and connect to the Wi-Fi network).
+8 - Provisioning (Configure and connect to the Wi-Fi network) Click to play in Youtube.
 
 [![](http://img.youtube.com/vi/cgpIMO7QH-g/0.jpg)](https://youtu.be/cgpIMO7QH-g "rainmaker app")
+
+[![](http://img.youtube.com/vi/ymNhdFpC66I/0.jpg)](https://youtu.be/ymNhdFpC66I "rainmaker app")
 
 9 - Enjoy.
