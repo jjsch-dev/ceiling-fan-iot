@@ -97,8 +97,10 @@ The application is written in C, based on Espressif IDF and as a development too
 
 8 - Provisioning (Configure and connect to the Wi-Fi network) Click to play in Youtube.
 
-[![](http://img.youtube.com/vi/cgpIMO7QH-g/0.jpg)](https://youtu.be/cgpIMO7QH-g "rainmaker app")
+[![](http://img.youtube.com/vi/cgpIMO7QH-g/0.jpg)](https://youtu.be/cgpIMO7QH-g "Click to play in Youtube")
 
-[![](http://img.youtube.com/vi/ymNhdFpC66I/0.jpg)](https://youtu.be/ymNhdFpC66I "rainmaker app")
+[![](http://img.youtube.com/vi/ymNhdFpC66I/0.jpg)](https://youtu.be/ymNhdFpC66I "Click to play in Youtube")
 
-9 - Enjoy.
+9 - Enjoy. Click to play in Youtube
+
+[![](http://img.youtube.com/vi/VVv3FSHKODo/0.jpg)](https://www.youtube.com/watch?v=VVv3FSHKODo "Click to play in Youtube")
