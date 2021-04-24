@@ -97,26 +97,26 @@ choice THERMISTOR_ADC_CHANNEL
 		bool "ADC channel 9"
 endchoice
 
-config RELE_SPEED_CAP_LOW_GPIO
-	int "Rele speed cap low GPIO number"
-	range 0 39
-	default 9
-	help
-		GPIO number (IOxx) of capacitor rele low.
-
-		Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
-
-config RELE_SPEED_CAP_HIGH_GPIO
-	int "Rele speed cap high GPIO number"
+config RELAY_SPEED_CAP_LOW_GPIO
+	int "Relay speed cap low GPIO number"
 	range 0 39
 	default 7
 	help
-		GPIO number (IOxx) of speed capacitor rele high.
+		GPIO number (IOxx) of capacitor relay low.
 
 		Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
 
-config RELE_SPEED_DIRECT_GPIO
-	int "Rele speed direct PIO number"
+config RELAY_SPEED_CAP_HIGH_GPIO
+	int "Relay speed cap high GPIO number"
+	range 0 39
+	default 6
+	help
+		GPIO number (IOxx) of speed capacitor relay high.
+
+		Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+
+config RELAY_SPEED_DIRECT_GPIO
+	int "Relay speed direct PIO number"
 	range 0 39
 	default 18
 	help
@@ -124,14 +124,20 @@ config RELE_SPEED_DIRECT_GPIO
 
 		Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
 
-config RELE_LIGHT_GPIO
-	int "Rele light GPIO number"
+config RELAY_LIGHT_GPIO
+	int "Relay light GPIO number"
 	range 0 39
 	default 19
 	help
-		GPIO number (IOxx) of light rele.
+		GPIO number (IOxx) of light relay.
 
 		Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
-		/* With 3 reles control the 4 speed of celling fan in AC */
+		/* With 3 relays control the 4 speed of celling fan in AC */
+
+config ACTIVATE_RELAY_LOW
+	bool "Activate relay with low"
+	default n
+	help
+		Inverts the relay control logic.
 
 endmenu

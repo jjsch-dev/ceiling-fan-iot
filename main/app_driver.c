@@ -94,6 +94,34 @@ static int32_t last_encoder_position = 0;
 #endif
 
 /**
+ * @brief Activates the corresponding relay and applies the configured logic.
+ */
+static void relay_on(gpio_num_t gpio_num)
+{
+bool level = true;  
+
+#if CONFIG_ACTIVATE_RELAY_LOW
+    level = false;
+#endif
+   
+   gpio_set_level(gpio_num, level);
+}
+
+/**
+ * @brief Turn off the corresponding relay and apply the configured logic.
+ */
+static void relay_off(gpio_num_t gpio_num)
+{
+bool level = false;  
+
+#if CONFIG_ACTIVATE_RELAY_LOW
+    level = true;
+#endif
+   
+   gpio_set_level(gpio_num, level);
+}
+
+/**
  * @brief Initialize the LED driver, with the ESP32-C3-Devkitm a neopixel 
  *        is used.
  */
@@ -167,25 +195,25 @@ static void set_speed(uint8_t val)
 {
     // First turn off the relay.
     if (val == 0) {
-        gpio_set_level(CONFIG_RELE_SPEED_CAP_LOW_GPIO, true);
-        gpio_set_level(CONFIG_RELE_SPEED_CAP_HIGH_GPIO, true);
-        gpio_set_level(CONFIG_RELE_SPEED_DIRECT_GPIO, true);
+        relay_off(CONFIG_RELAY_SPEED_CAP_LOW_GPIO);
+        relay_off(CONFIG_RELAY_SPEED_CAP_HIGH_GPIO);
+        relay_off(CONFIG_RELAY_SPEED_DIRECT_GPIO);
     } else if (val == 1) {
-        gpio_set_level(CONFIG_RELE_SPEED_CAP_HIGH_GPIO, true);
-        gpio_set_level(CONFIG_RELE_SPEED_DIRECT_GPIO, true);
-        gpio_set_level(CONFIG_RELE_SPEED_CAP_LOW_GPIO, false);
+        relay_off(CONFIG_RELAY_SPEED_CAP_HIGH_GPIO);
+        relay_off(CONFIG_RELAY_SPEED_DIRECT_GPIO);
+        relay_on(CONFIG_RELAY_SPEED_CAP_LOW_GPIO);
     } else if (val == 2) {
-        gpio_set_level(CONFIG_RELE_SPEED_CAP_LOW_GPIO, true);
-        gpio_set_level(CONFIG_RELE_SPEED_DIRECT_GPIO, true);
-        gpio_set_level(CONFIG_RELE_SPEED_CAP_HIGH_GPIO, false);
+        relay_off(CONFIG_RELAY_SPEED_CAP_LOW_GPIO);
+        relay_off(CONFIG_RELAY_SPEED_DIRECT_GPIO);
+        relay_on(CONFIG_RELAY_SPEED_CAP_HIGH_GPIO);
     } else if (val == 3) {
-        gpio_set_level(CONFIG_RELE_SPEED_DIRECT_GPIO, true);
-        gpio_set_level(CONFIG_RELE_SPEED_CAP_LOW_GPIO, false);
-        gpio_set_level(CONFIG_RELE_SPEED_CAP_HIGH_GPIO, false);
+        relay_off(CONFIG_RELAY_SPEED_DIRECT_GPIO);
+        relay_on(CONFIG_RELAY_SPEED_CAP_LOW_GPIO);
+        relay_on(CONFIG_RELAY_SPEED_CAP_HIGH_GPIO);
     } else if ((val == 4) || (val == 5)) {
-        gpio_set_level(CONFIG_RELE_SPEED_CAP_LOW_GPIO, true);
-        gpio_set_level(CONFIG_RELE_SPEED_CAP_HIGH_GPIO, true);
-        gpio_set_level(CONFIG_RELE_SPEED_DIRECT_GPIO, false);
+        relay_off(CONFIG_RELAY_SPEED_CAP_LOW_GPIO);
+        relay_off(CONFIG_RELAY_SPEED_CAP_HIGH_GPIO);
+        relay_on(CONFIG_RELAY_SPEED_DIRECT_GPIO);
     }
 
     show_status(val, g_light);
@@ -366,7 +394,11 @@ esp_err_t app_fan_set_ligth(bool state)
 {
     g_light = state;
 
-    gpio_set_level(CONFIG_RELE_LIGHT_GPIO, !state);
+    if (state) {
+        relay_on(CONFIG_RELAY_LIGHT_GPIO);
+    } else {
+        relay_off(CONFIG_RELAY_LIGHT_GPIO);
+    }
 
     show_status(g_speed, g_light);
     return ESP_OK;  
@@ -395,10 +427,10 @@ void app_driver_init()
         .mode = GPIO_MODE_OUTPUT,
         .pull_up_en = 1,
     };
-    uint64_t pin_mask = (((uint64_t)1 << CONFIG_RELE_SPEED_CAP_LOW_GPIO) | 
-                         ((uint64_t)1 << CONFIG_RELE_SPEED_CAP_HIGH_GPIO) | 
-                         ((uint64_t)1 << CONFIG_RELE_SPEED_DIRECT_GPIO) | 
-                         ((uint64_t)1 << CONFIG_RELE_LIGHT_GPIO) );
+    uint64_t pin_mask = (((uint64_t)1 << CONFIG_RELAY_SPEED_CAP_LOW_GPIO) | 
+                         ((uint64_t)1 << CONFIG_RELAY_SPEED_CAP_HIGH_GPIO) | 
+                         ((uint64_t)1 << CONFIG_RELAY_SPEED_DIRECT_GPIO) | 
+                         ((uint64_t)1 << CONFIG_RELAY_LIGHT_GPIO) );
     io_conf.pin_bit_mask = pin_mask;
     /* Configure the GPIO */
     gpio_config(&io_conf);
