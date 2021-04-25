@@ -118,7 +118,7 @@ config RELAY_SPEED_CAP_HIGH_GPIO
 config RELAY_SPEED_DIRECT_GPIO
 	int "Relay speed direct PIO number"
 	range 0 39
-	default 18
+	default 5
 	help
 		GPIO number (IOxx) of speed direct.
 
@@ -127,7 +127,7 @@ config RELAY_SPEED_DIRECT_GPIO
 config RELAY_LIGHT_GPIO
 	int "Relay light GPIO number"
 	range 0 39
-	default 19
+	default 4
 	help
 		GPIO number (IOxx) of light relay.
 
