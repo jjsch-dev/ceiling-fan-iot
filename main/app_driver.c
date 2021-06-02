@@ -121,6 +121,11 @@ bool level = false;
    gpio_set_level(gpio_num, level);
 }
 
+static void set_idle_color(void)
+{
+    ws2812_led_set_rgb((0xCC/3), (0xCC/3), (0x99/3)); 
+}
+
 /**
  * @brief Initialize the LED driver, with the ESP32-C3-Devkitm a neopixel 
  *        is used.
@@ -132,9 +137,9 @@ esp_err_t err = ESP_OK;
 #ifdef CONFIG_IDF_TARGET_ESP32C3
     err = ws2812_led_init();
     if (err == ESP_OK) {
-        err = ws2812_led_clear();
+        set_idle_color();
     }
-    ESP_LOGI(TAG, "ws2812_led_init: %d", err);
+    ESP_LOGI(TAG, "ws2812_led_init -1: %d", err);
 #endif
     return err;
 }
@@ -182,7 +187,7 @@ static void show_status(uint8_t speed, bool light)
     } else if (light) {
         ws2812_led_set_rgb(0, 0, 100); 
     } else {
-        ws2812_led_clear();
+        set_idle_color();
     }
 #endif
 }
