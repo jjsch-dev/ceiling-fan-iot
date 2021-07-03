@@ -5,6 +5,7 @@ The selected processor is the [ESP32-C3](https://www.espressif.com/sites/default
 
 
 ## Explode view 
+
 As the purpose was to replace an old controller from my house, to fit it into a 100mm box I had to build a PCB in order to decrease the footprint, and 3d print the front to mount it on a standard frame.
 
 As in linux there is no support for fusion 360 use onshape for the [assembly](https://cad.onshape.com/documents/71acf9008c56a0b1a5695f37/w/967222a47d34025a139e3862/e/0c178ba322c00475acc6add3) cads and the [front cover](https://cad.onshape.com/documents/136d4c7a6a8e92c2be45bf03/w/4c451ab5564fe96ef80b367c/e/ab9c2ed234f4e64b43c2f324) which only requires a browser, and the result is amazing. And to design and manufacture the [PCB](https://easyeda.com/juanschiavoni/ceiling-iot-esp32-c3) use easyeda, the manufacturing service is good, but I could not export the pcba in step format, I had to use kicad.
@@ -38,6 +39,7 @@ Controls the (ON / OFF) of the fan with temperature. As a sensor it uses a therm
 ![alt text](images/app_thermostat.png)
 
 ### Power Supply
+
 To power the electronic equipment, approximately 350 mA at 3.3V is required for the CPU when Wi-Fi is in active mode, and 90 mA at 5V for each relay. (350mA * 3.3V) = 1,155 W + (90 mA * 5 * 3 relays) = 1,350 W, total = 2,505 W. To increase the safety factor for the proof of concept select the Hi-Link source [HLK-5M05](https://datasheet.lcsc.com/szlcsc/1912111437_HI-LINK-HLK-5M05_C209907.pdf) that delivers 5V at 1A which is twice the estimated power.
 
 ![alt text](images/power_supply_5v_1a.png)
@@ -61,11 +63,13 @@ The next two pictures show the DC output and ripple output of the power supply w
 Press and hold the encoder button for more than 3 seconds to reset the board to factory defaults. You will have to provision the board again to use it.
 
 ### Schematic
+
 The schematic of the ESP32-C3 version is simple, it consists of an output stage made up of 4 relays, an encoder for manual control, and a thermistor to control the thermostat. As a power supply it uses a 5V 600 mA HLK.
 
 ![alt text](images/Schematic_Ceiling_IOT_ESP32-C3_2021-07-03.png)
 
 ### Prototype Board
+
 The first version of the prototype is a mix of Arduino boards with conventional electronics. The next version will add a power supply to test the concept on a fan.
 
 ![alt text](images/first_version.png)
@@ -81,6 +85,7 @@ The third prototype is already functional and, although the form factor is not s
 ![alt text](images/protoype_esp32-c3_3.png)
 
 ### Final PCBA
+
 To design and manufacture the PCB I used the easyeda online service, which allows you to buy at least 5 units, in my case it works for me because I plan to replace 4 old fan controllers and I also wanted to experience how the process of importing to my country was.
 
 ![alt text](images/pcba_easyeda/pcba_front.png)
@@ -96,6 +101,7 @@ Images of the PCB mounted on the frame for the 100 mm deep-drawn box, typical of
 ![alt text](images/pcba_easyeda/3d_print_mount_back.png)
 
 ### 3D print parts
+
 To mount the pcba in the commercial rack, design with onshape a [cabinet front](https://cad.onshape.com/documents/136d4c7a6a8e92c2be45bf03/w/4c451ab5564fe96ef80b367c/e/ab9c2ed234f4e64b43c2f324) that with three screws allows mounting the board with a protector to avoid short circuits in metal boxes.
 In total, 3 pieces are required to be printed in petg: the front, the knob and the protector.
 
@@ -103,6 +109,7 @@ In total, 3 pieces are required to be printed in petg: the front, the knob and t
 ![alt text](images/3d_print_cover.png)
 
 ### Development environment
+
 The application is written in C, based on Espressif IDF and as a development tool the [Visual Code](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/vscode-setup.html) of MS was used with the Espressif plugin.
 
 1 - Download the [IDF](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/).
@@ -134,3 +141,9 @@ The application is written in C, based on Espressif IDF and as a development too
 9 - Enjoy. Click to play in Youtube
 
 [![](http://img.youtube.com/vi/VVv3FSHKODo/0.jpg)](https://www.youtube.com/watch?v=VVv3FSHKODo "Click to play in Youtube")
+
+### Old ceiling controller
+
+The ceiling fan light speed and start controller was externally mounted and bulky.
+
+![alt text](images/old_ceiling_controller.png)
