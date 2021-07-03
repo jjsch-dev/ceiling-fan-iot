@@ -4,20 +4,12 @@ The purpose of this project is to develop a hum-free electronic ceiling fan devi
 The selected processor is the [ESP32-C3](https://www.espressif.com/sites/default/files/documentation/esp32-c3-mini-1_datasheet_en.pdf) in its mini development kit format.
 
 
-## Assembly 
+## Explode view 
 As the purpose was to replace an old controller from my house, to fit it into a 100mm box I had to build a PCB in order to decrease the footprint, and 3d print the front to mount it on a standard frame.
 
-The following are some images of the final result and below are the links of the pcb and 3d models.
+As in linux there is no support for fusion 360 use onshape for the [assembly](https://cad.onshape.com/documents/71acf9008c56a0b1a5695f37/w/967222a47d34025a139e3862/e/0c178ba322c00475acc6add3) cads and the [front cover](https://cad.onshape.com/documents/136d4c7a6a8e92c2be45bf03/w/4c451ab5564fe96ef80b367c/e/ab9c2ed234f4e64b43c2f324) which only requires a browser, and the result is amazing. And to design and manufacture the [PCB](https://easyeda.com/juanschiavoni/ceiling-iot-esp32-c3) use easyeda, the manufacturing service is good, but I could not export the pcba in step format, I had to use kicad.
 
-![alt text](images/pcba_easyeda/pcba_front.png)
-
-![alt text](images/pcba_easyeda/pcba_back.png)
-
-![alt text](images/pcba_easyeda/3d_print_mount_front.png)
-
-![alt text](images/pcba_easyeda/3d_print_mount_left.png)
-
-![alt text](images/pcba_easyeda/3d_print_mount_back.png)
+![](images/explode_view_v18.gif)
 
 ## Electronic for No Humming
 
