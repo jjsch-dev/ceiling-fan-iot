@@ -3,6 +3,22 @@
 The purpose of this project is to develop a hum-free electronic ceiling fan device that can be controlled remotely (IOT) or locally with a rotary encoder.
 The selected processor is the [ESP32-C3](https://www.espressif.com/sites/default/files/documentation/esp32-c3-mini-1_datasheet_en.pdf) in its mini development kit format.
 
+
+## Assembly 
+As the purpose was to replace an old controller from my house, to fit it into a 100mm box I had to build a PCB in order to decrease the footprint, and 3d print the front to mount it on a standard frame.
+
+The following are some images of the final result and below are the links of the pcb and 3d models.
+
+![alt text](images/pcba_easyeda/pcba_front.png)
+
+![alt text](images/pcba_easyeda/pcba_back.png)
+
+![alt text](images/pcba_easyeda/3d_print_mount_front.png)
+
+![alt text](images/pcba_easyeda/3d_print_mount_left.png)
+
+![alt text](images/pcba_easyeda/3d_print_mount_back.png)
+
 ## Electronic for No Humming
 
 To prevent humming, capacitive reactances are used to limit the current in the motor stator, and since the friction (blades etc) is moderately high, the rotation speed decreases. This version has four speeds to keep the form factor as small as possible, (capacitors and relays are large).
