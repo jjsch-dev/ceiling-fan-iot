@@ -145,11 +145,11 @@ The application is written in C, based on Espressif IDF and as a development too
 
 ### Testing the final controller
 
-It shows how the ceiling fan can be controlled from the rainmaker cell phone APP that is connected to the AWS network.
+It shows how the ceiling fan can be controlled from the rainmaker cell phone APP that is connected to the AWS network. Click to play in Youtube.
 
 [![](http://img.youtube.com/vi/gEUzPvxm420/0.jpg)](https://www.youtube.com/watch?v=gEUzPvxm420 "Click to play in Youtube")
 
-It shows how the ceiling fan can be controlled manually.
+It shows how the ceiling fan can be controlled manually. Click to play in Youtube.
 
 [![](http://img.youtube.com/vi/aZ0LPAEYysA/0.jpg)](https://www.youtube.com/watch?v=aZ0LPAEYysA "Click to play in Youtube")
 
