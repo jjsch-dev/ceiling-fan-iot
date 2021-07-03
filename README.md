@@ -80,6 +80,21 @@ The third prototype is already functional and, although the form factor is not s
 
 ![alt text](images/protoype_esp32-c3_3.png)
 
+### Final PCBA
+To design and manufacture the PCB I used the easyeda online service, which allows you to buy at least 5 units, in my case it works for me because I plan to replace 4 old fan controllers and I also wanted to experience how the process of importing to my country was.
+
+![alt text](images/pcba_front.png)
+
+![alt text](images/pcba_back.png)
+
+In this [link](https://easyeda.com/juanschiavoni/ceiling-iot-esp32-c3) you can access the project that is free with an MIT license, to reform it to your space needs, or if it helps you to order it.
+
+Images of the PCB mounted on the frame for the 100 mm deep-drawn box, typical of Argentina.
+
+![alt text](images/3d_print_mount_front.png)
+![alt text](images/3d_print_mount_left.png)
+![alt text](images/3d_print_mount_back.png)
+
 ### Development environment
 The application is written in C, based on Espressif IDF and as a development tool the [Visual Code](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/vscode-setup.html) of MS was used with the Espressif plugin.
 
