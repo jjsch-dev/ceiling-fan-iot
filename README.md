@@ -142,6 +142,17 @@ The application is written in C, based on Espressif IDF and as a development too
 
 [![](http://img.youtube.com/vi/VVv3FSHKODo/0.jpg)](https://www.youtube.com/watch?v=VVv3FSHKODo "Click to play in Youtube")
 
+
+### Testing the final controller
+
+It shows how the ceiling fan can be controlled from the rainmaker cell phone APP that is connected to the AWS network.
+
+[![](http://img.youtu.be/gEUzPvxm420/0.jpg)](https://youtu.be/gEUzPvxm420 "Click to play in Youtube")
+
+It shows how the ceiling fan can be controlled manually.
+
+[![](http://img.youtu.be/aZ0LPAEYysA/0.jpg)](https://youtu.be/aZ0LPAEYysA "Click to play in Youtube")
+
 ### Old ceiling controller
 
 The ceiling fan light speed and start controller was externally mounted and bulky.
