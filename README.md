@@ -99,8 +99,8 @@ Images of the PCB mounted on the frame for the 100 mm deep-drawn box, typical of
 To mount the pcba in the commercial rack, design with onshape a [cabinet front](https://cad.onshape.com/documents/136d4c7a6a8e92c2be45bf03/w/4c451ab5564fe96ef80b367c/e/ab9c2ed234f4e64b43c2f324) that with three screws allows mounting the board with a protector to avoid short circuits in metal boxes.
 In total, 3 pieces are required to be printed in petg: the front, the knob and the protector.
 
-![alt text](images/pcba_easyeda/3d_print_cover.png)
-![alt text](images/pcba_easyeda/3d_print_cover.png)
+![alt text](images/3d_print_cover.png)
+![alt text](images/3d_print_cover.png)
 
 ### Development environment
 The application is written in C, based on Espressif IDF and as a development tool the [Visual Code](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/vscode-setup.html) of MS was used with the Espressif plugin.
