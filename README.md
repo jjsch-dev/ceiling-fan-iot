@@ -31,7 +31,7 @@ For local control, a pushbutton rotary encoder is used to set the speed and turn
 
 ### Visual indication
 
-Taking advantage of the fact that the ESP32-C3 mini board has a neopixel, the combinations of functions are indicated with colors and brightness levels. For example, when the light is off, the fan speed is indicated with 4 levels of brightness in red, but when it is on in green, and when the fan is off it turns blue to the maximum.
+Taking advantage of the fact that the ESP32-C3 mini board has a neopixel, the combinations of functions are indicated with colors and brightness levels. For example, when the light is off, the fan speed is indicated with 4 levels of brightness in red, but when it is on in green, and when the fan is off and the light on it turns blue to the maximum, and in idle the the led is white.
 
 ### Thermostat Device
 
