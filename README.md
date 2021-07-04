@@ -89,6 +89,15 @@ The third prototype is already functional and, although the form factor is not s
 
 ![alt text](images/protoype_esp32-c3_3.png)
 
+Fourth test, one of the most voluminous components is the relay, and since the equipment also requires 4 units, using a smaller one is essential for the equipment to fit into a 100 mm box. Therefore, a test had to be carried out with the new relays [932-5VDC-SL-AH 10A/0.45W](https://datasheet.lcsc.com/lcsc/1912112237_NHLC-932-5VDC-SL-AH-10A-0-45W_C396979.pdf) to verify that they support the current pulses when the fan speeds change. NOTE: Sorry, but since the photo was taken after the final PCBA was assembled, I don't have the processor.
+
+![alt text](images/protoype_esp32-c3_4.png)
+
+Below is a video of the test performed to evaluate the new relays. Click to play in Youtube.
+
+[![](http://img.youtube.com/vi/B1B9G1hrwu8/0.jpg)](https://www.youtube.com/watch?v=B1B9G1hrwu8 "Click to play in Youtube")
+
+
 ### Final PCBA
 
 To design and manufacture the PCB I used the easyeda online service, which allows you to buy at least 5 units, in my case it works because I plan to replace 4 old fan controllers and I also wanted to experience what the import process is like in my country.
