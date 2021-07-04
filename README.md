@@ -1,12 +1,13 @@
 # Ceiling Fan Control - (No Humming)
 
-The purpose of this project is to develop a hum-free electronic ceiling fan device that can be controlled remotely (IOT) or locally with a rotary encoder.
-The selected processor is the [ESP32-C3](https://www.espressif.com/sites/default/files/documentation/esp32-c3-mini-1_datasheet_en.pdf) in its mini development kit format.
+The purpose of this project was to develop a hum-free electronic ceiling fan device that can be controlled remotely (IOT) or locally with a rotary encoder.
+
+The selected processor was the [ESP32-C3](https://www.espressif.com/sites/default/files/documentation/esp32-c3-mini-1_datasheet_en.pdf) in its mini development kit format.
 
 
 ## Explode view 
 
-As the purpose was to replace an old controller from my house, to fit it into a 100mm box I had to build a PCB to reduce space and use a 3D printer for the front cover that would fit a standard frame.
+As the purpose was to replace an old controller in my house, to fit it into a 100mm wall box I had to build a PCB to reduce footprint and use a 3D printer for the front cover that would fit a standard frame for electricity.
 
 As in linux there is no support for fusion 360 use onshape to model the [assembly](https://cad.onshape.com/documents/71acf9008c56a0b1a5695f37/w/967222a47d34025a139e3862/e/0c178ba322c00475acc6add3) and cads of the [front cover](https://cad.onshape.com/documents/136d4c7a6a8e92c2be45bf03/w/4c451ab5564fe96ef80b367c/e/ab9c2ed234f4e64b43c2f324) which only requires a browser, and the result is amazing. And to design and manufacture the [PCB](https://easyeda.com/juanschiavoni/ceiling-iot-esp32-c3) use easyeda, the manufacturing service is good, but I could not export the pcba in step format, I had to use kicad.
 
@@ -89,7 +90,7 @@ The third prototype is already functional and, although the form factor is not s
 
 ![alt text](images/protoype_esp32-c3_3.png)
 
-Fourth test, one of the most voluminous components is the relay, and since the equipment also requires 4 units, using a smaller one is essential for the equipment to fit into a 100 mm box. Therefore, a test had to be carried out with the new relays [932-5VDC-SL-AH 10A/0.45W](https://datasheet.lcsc.com/lcsc/1912112237_NHLC-932-5VDC-SL-AH-10A-0-45W_C396979.pdf) to verify that they support the current pulses when the fan speeds change. NOTE: Sorry, but since the photo was taken after the final PCBA was assembled, I don't have the processor.
+The fourth prototype was to test a smaller relay that is essential for the equipment to fit in a 100mm box. Therefore, a test had to be performed with the new [932-5VDC-SL-AH 10A/0.45W](https://datasheet.lcsc.com/lcsc/1912112237_NHLC-932-5VDC-SL-AH-10A-0-45W_C396979.pdf) relays to verify that they withstand current pulses when fan speeds change. NOTE: Sorry, but since the photo was taken after the final PCBA was assembled, it doesn't have the ESP32-C3 processor.
 
 ![alt text](images/protoype_esp32-c3_4.png)
 
@@ -106,7 +107,7 @@ To design and manufacture the PCB I used the easyeda online service, which allow
 
 ![alt text](images/pcba_easyeda/pcba_back.png)
 
-In this [link](https://easyeda.com/juanschiavoni/ceiling-iot-esp32-c3) you can access the project that is free with an MIT license, to reform it to your space needs, or if it helps you to order it.
+In this [link](https://easyeda.com/juanschiavoni/ceiling-iot-esp32-c3) you can access the project that is free under the MIT license, to reform it to your space needs, or if it works for you, you can order it directly from easyeda.
 
 Images of the PCB mounted on the frame for the 100 mm deep-drawn box, typical of Argentina.
 
@@ -176,6 +177,6 @@ It shows how the ceiling fan can be controlled manually. Click to play in Youtub
 
 ### Old ceiling controller
 
-The ceiling fan light speed and start controller was externally mounted and bulky.
+For reference, this was the bulky externally mounted ceiling fan light speed controller.
 
 ![alt text](images/old_ceiling_controller.png)
