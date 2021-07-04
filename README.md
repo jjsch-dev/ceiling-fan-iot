@@ -114,6 +114,13 @@ Images of the PCB mounted on the frame for the 100 mm deep-drawn box, typical of
 ![alt text](images/pcba_easyeda/3d_print_mount_left.png)
 ![alt text](images/pcba_easyeda/3d_print_mount_back.png)
 
+
+### PCBA order proccess
+
+The following video shows the steps to be taken to order the boards with the assembled components except for the esp32-c3 processor, because for now they only mount one side of the PCB. Click to play in Youtube.
+
+[![](http://img.youtube.com/vi/jPR6EYx1I08/0.jpg)](https://www.youtube.com/watch?v=jPR6EYx1I08 "Click to play in Youtube")
+
 ### 3D print parts
 
 To mount the pcba in the commercial rack, design with onshape a [cabinet front](https://cad.onshape.com/documents/136d4c7a6a8e92c2be45bf03/w/4c451ab5564fe96ef80b367c/e/ab9c2ed234f4e64b43c2f324) that with three screws allows mounting the board with a protector to avoid short circuits in metal boxes.
