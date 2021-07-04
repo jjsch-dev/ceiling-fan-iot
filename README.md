@@ -6,9 +6,9 @@ The selected processor is the [ESP32-C3](https://www.espressif.com/sites/default
 
 ## Explode view 
 
-As the purpose was to replace an old controller from my house, to fit it into a 100mm box I had to build a PCB in order to decrease the footprint, and 3d print the front to mount it on a standard frame.
+As the purpose was to replace an old controller from my house, to fit it into a 100mm box I had to build a PCB to reduce space and use a 3D printer for the front cover that would fit a standard frame.
 
-As in linux there is no support for fusion 360 use onshape for the [assembly](https://cad.onshape.com/documents/71acf9008c56a0b1a5695f37/w/967222a47d34025a139e3862/e/0c178ba322c00475acc6add3) cads and the [front cover](https://cad.onshape.com/documents/136d4c7a6a8e92c2be45bf03/w/4c451ab5564fe96ef80b367c/e/ab9c2ed234f4e64b43c2f324) which only requires a browser, and the result is amazing. And to design and manufacture the [PCB](https://easyeda.com/juanschiavoni/ceiling-iot-esp32-c3) use easyeda, the manufacturing service is good, but I could not export the pcba in step format, I had to use kicad.
+As in linux there is no support for fusion 360 use onshape to model the [assembly](https://cad.onshape.com/documents/71acf9008c56a0b1a5695f37/w/967222a47d34025a139e3862/e/0c178ba322c00475acc6add3) and cads of the [front cover](https://cad.onshape.com/documents/136d4c7a6a8e92c2be45bf03/w/4c451ab5564fe96ef80b367c/e/ab9c2ed234f4e64b43c2f324) which only requires a browser, and the result is amazing. And to design and manufacture the [PCB](https://easyeda.com/juanschiavoni/ceiling-iot-esp32-c3) use easyeda, the manufacturing service is good, but I could not export the pcba in step format, I had to use kicad.
 
 ![](images/explode_view_v18.gif)
 
@@ -37,6 +37,11 @@ Taking advantage of the fact that the ESP32-C3 mini board has a neopixel, the co
 Controls the (ON / OFF) of the fan with temperature. As a sensor it uses a thermistor of 100K at 25 degrees Celsius with a beta of 4250 from Murata model NXRT15WF104FA1B040. The firmware uses the simplified [Steinhart equation](https://en.wikipedia.org/wiki/Steinhart%E2%80%93Hart_equation) to linearize the response. The control implements a 2 degree hysterisis to improve system stability.
 
 ![alt text](images/app_thermostat.png)
+
+The [MF52A104F3950](https://datasheet.lcsc.com/lcsc/1810171512_Nanjing-Shiheng-Elec-MF52A104F3950-A1_C13424.pdf) thermistor that I end up using in the final product is different than the one I used in the prototype, but the results are similar to what I got with the Murata, below is a video with the measurements. Click to play in Youtube
+
+[![](http://img.youtube.com/vi/cc-UPIDVQn8/0.jpg)](https://www.youtube.com/watch?v=cc-UPIDVQn8 "Click to play in Youtube")
+
 
 ### Power Supply
 
@@ -86,7 +91,7 @@ The third prototype is already functional and, although the form factor is not s
 
 ### Final PCBA
 
-To design and manufacture the PCB I used the easyeda online service, which allows you to buy at least 5 units, in my case it works for me because I plan to replace 4 old fan controllers and I also wanted to experience how the process of importing to my country was.
+To design and manufacture the PCB I used the easyeda online service, which allows you to buy at least 5 units, in my case it works because I plan to replace 4 old fan controllers and I also wanted to experience what the import process is like in my country.
 
 ![alt text](images/pcba_easyeda/pcba_front.png)
 
