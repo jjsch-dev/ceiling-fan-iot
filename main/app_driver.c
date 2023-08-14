@@ -53,8 +53,8 @@ static const char* TAG = "app_drv";
 #define BUTTON_GPIO          CONFIG_ROT_ENC_BUTTON_GPIO
 #define BUTTON_ACTIVE_LEVEL  0
 
-#define WIFI_RESET_BUTTON_TIMEOUT       3
-#define FACTORY_RESET_BUTTON_TIMEOUT    10
+#define WIFI_RESET_BUTTON_TIMEOUT       30
+#define FACTORY_RESET_BUTTON_TIMEOUT    60
 
 static uint8_t g_speed = DEFAULT_SPEED;
 static bool g_power = DEFAULT_POWER;

@@ -31,7 +31,7 @@
 #define DEFAULT_TEMPERATURE                 25.0
 #define DEFAULT_THERMOSTAT_TEMPERATURE      30
 #define DEFAULT_THERMOSTAT_ENABLE           false
-#define TEMPERATURE_REPORTING_PERIOD        10 /* Seconds */
+#define TEMPERATURE_REPORTING_PERIOD        60 /* Seconds */
 #define MAX_CELING_SPEED                    5
 
 #define LIGHT_SWITCH_NAME                   "Ligth"

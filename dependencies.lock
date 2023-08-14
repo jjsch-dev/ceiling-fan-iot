@@ -1,2 +1,21 @@
-manifest_hash: c7140796fc9460407ad52312f2e3cfdd1e46a431aeed136538ad28e5f514169a
+dependencies:
+  espressif/esp_secure_cert_mgr:
+    component_hash: 0a7b7f1c26fbd6fd8f49cc90f39203e3ab9cf334bbbf288bede9db745c35892c
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 2.3.1
+  espressif/mdns:
+    component_hash: 53b22a3b01d0b61180369a5dab00e271f1e725164b6affbc73af85e80b043658
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 1.2.0
+  idf:
+    component_hash: null
+    source:
+      type: idf
+    version: 5.2.0
+manifest_hash: eba9b8a8bb380fdc952461b68c3ccc12febaa0ee51e92f1a1a4c7cc30b69e22f
+target: esp32c3
 version: 1.0.0
