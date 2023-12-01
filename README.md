@@ -146,8 +146,12 @@ The application is written in C, based on Espressif IDF and as a development too
 5 - Build (compile and link).
 ![](images/visual_code_build.gif)
 
-5 - Flash the code.
+5 - Flash the code with visual code.
 ![](images/visual_code_flash.gif)
+
+5.1 - Flash the code with esptool
+    1. download the bin files from the bin folder
+    2. python -m esptool --chip esp32c3 -b 460800 --before default_reset --after hard_reset write_flash --flash_mode dio --flash_size 4MB --flash_freq 80m 0x0 bin/bootloader.bin 0x8000 bin/partition-table.bin 0x16000 bin/ota_data_initial.bin 0x20000 bin/fan.bin
 
 6 - Run the serial monitor.
 ![](images/visual_code_monitor.gif)
