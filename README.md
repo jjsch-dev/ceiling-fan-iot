@@ -166,7 +166,7 @@ The application is written in C, based on Espressif IDF and as a development too
 
 [![](http://img.youtube.com/vi/ymNhdFpC66I/0.jpg)](https://youtu.be/ymNhdFpC66I "Click to play in Youtube")
 
-*10 - Enjoy. Click to play in Youtube
+* 10 Enjoy. Click to play in Youtube
 
 [![](http://img.youtube.com/vi/VVv3FSHKODo/0.jpg)](https://www.youtube.com/watch?v=VVv3FSHKODo "Click to play in Youtube")
 
