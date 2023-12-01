@@ -1,21 +1,81 @@
 dependencies:
+  espressif/cbor:
+    component_hash: 440f4ee4504841cc9b4f3a8ef755776a612ac9dace355514c68b999868f990ff
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 0.6.0~1
+  espressif/esp_diag_data_store:
+    component_hash: null
+    source:
+      path: /home/jjsch/esp/esp-rainmaker/components/esp-insights/components/esp_diag_data_store
+      type: local
+    version: 1.0.1
+  espressif/esp_diagnostics:
+    component_hash: null
+    source:
+      path: /home/jjsch/esp/esp-rainmaker/components/esp-insights/components/esp_diagnostics
+      type: local
+    version: 1.0.1
+  espressif/esp_insights:
+    component_hash: null
+    source:
+      path: /home/jjsch/esp/esp-rainmaker/components/esp-insights/components/esp_insights
+      type: local
+    version: 1.0.1
+  espressif/esp_rainmaker:
+    component_hash: null
+    source:
+      path: /home/jjsch/esp/esp-rainmaker/components/esp_rainmaker
+      type: local
+    version: 1.0.0
+  espressif/esp_schedule:
+    component_hash: null
+    source:
+      path: /home/jjsch/esp/esp-rainmaker/components/esp_schedule
+      type: local
+    version: 1.1.0
   espressif/esp_secure_cert_mgr:
-    component_hash: 0a7b7f1c26fbd6fd8f49cc90f39203e3ab9cf334bbbf288bede9db745c35892c
+    component_hash: a20007d67e65a000670ab77e45d7554c943eb8dcb0abeada0a57dd9adac3a703
     source:
       service_url: https://api.components.espressif.com/
       type: service
-    version: 2.3.1
+    version: 2.4.1
+  espressif/jsmn:
+    component_hash: d80350c41bbaa827c98a25b6072df00884e72f54885996fab4a4f0aebce6b6c3
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 1.1.0
+  espressif/json_generator:
+    component_hash: null
+    source:
+      path: /home/jjsch/esp/esp-rainmaker/components/json_generator
+      type: local
+    version: 1.1.1
+  espressif/json_parser:
+    component_hash: null
+    source:
+      path: /home/jjsch/esp/esp-rainmaker/components/json_parser
+      type: local
+    version: 1.0.3
   espressif/mdns:
-    component_hash: 53b22a3b01d0b61180369a5dab00e271f1e725164b6affbc73af85e80b043658
+    component_hash: 810ec139689ae93bf42520d05de4855fbb68f7140ef67797d91d8d61829589cb
     source:
       service_url: https://api.components.espressif.com/
       type: service
-    version: 1.2.0
+    version: 1.2.2
+  espressif/rmaker_common:
+    component_hash: null
+    source:
+      path: /home/jjsch/esp/esp-rainmaker/components/esp-insights/components/rmaker_common
+      type: local
+    version: 1.4.3
   idf:
     component_hash: null
     source:
       type: idf
-    version: 5.2.0
-manifest_hash: eba9b8a8bb380fdc952461b68c3ccc12febaa0ee51e92f1a1a4c7cc30b69e22f
+    version: 5.3.0
+manifest_hash: 43025fde99ae69ebbcc4551d469a7710068b0a6777dfda4ad59050b8203d6dc8
 target: esp32c3
 version: 1.0.0
