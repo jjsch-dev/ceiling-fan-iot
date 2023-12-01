@@ -152,7 +152,7 @@ The application is written in C, based on Espressif IDF and as a development too
 * 6.1 Flash the code with esptool
 * 6.1.1 Download the bin files from [bin](https://github.com/jjsch-dev/ceiling-fan-iot/tree/master/bin) folder.
     
-* 6.1.2 
+* 6.1.2 Use esptool to update the CPU with the following command line.
 > python -m esptool --chip esp32c3 -b 460800 --before default_reset --after hard_reset write_flash --flash_mode dio --flash_size 4MB --flash_freq 80m 0x0 bin/bootloader.bin 0x8000 bin/partition-table.bin 0x16000 bin/ota_data_initial.bin 0x20000 bin/fan.bin
 
 * 7 Run the serial monitor.
